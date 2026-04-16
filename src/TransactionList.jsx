@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { formatCurrency } from './utils/format'
 
 const categories = ["food", "housing", "utilities", "transport", "entertainment", "salary", "other"];
 
@@ -54,7 +55,7 @@ function TransactionList({ transactions, onDelete }) {
               <td>{t.description}</td>
               <td>{t.category}</td>
               <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                {t.type === "income" ? "+" : "-"}${t.amount}
+                {t.type === "income" ? "+" : "-"}{formatCurrency(t.amount)}
               </td>
               <td><button className="delete-btn" onClick={() => handleDelete(t)}>Delete</button></td>
             </tr>

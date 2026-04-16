@@ -10,12 +10,13 @@ function TransactionForm({ onAdd }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!description || !amount) return;
+    const parsed = parseFloat(amount);
+    if (!description.trim() || isNaN(parsed) || parsed <= 0) return;
 
     onAdd({
-      id: Date.now(),
-      description,
-      amount: parseFloat(amount),
+      id: crypto.randomUUID(),
+      description: description.trim(),
+      amount: parsed,
       type,
       category,
       date: new Date().toISOString().split('T')[0],

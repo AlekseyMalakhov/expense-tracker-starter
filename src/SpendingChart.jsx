@@ -1,4 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { formatCurrency } from './utils/format';
 
 const COLORS = ['#38bdf8', '#34d399', '#fb7185', '#a78bfa', '#fbbf24', '#f472b6', '#60a5fa', '#4ade80'];
 
@@ -37,14 +38,14 @@ function SpendingChart({ transactions }) {
             tickLine={false}
           />
           <YAxis
-            tickFormatter={(v) => `$${v}`}
+            tickFormatter={(v) => formatCurrency(v)}
             tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'Mulish, sans-serif' }}
             axisLine={false}
             tickLine={false}
             width={52}
           />
           <Tooltip
-            formatter={(value) => [`$${value}`, 'Amount']}
+            formatter={(value) => [formatCurrency(value), 'Amount']}
             contentStyle={tooltipStyle}
             cursor={{ fill: 'rgba(56, 189, 248, 0.04)' }}
           />
