@@ -1,6 +1,15 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const COLORS = ['#6366f1', '#f59e0b', '#10b981', '#ef4444', '#3b82f6', '#ec4899', '#8b5cf6', '#14b8a6'];
+const COLORS = ['#38bdf8', '#34d399', '#fb7185', '#a78bfa', '#fbbf24', '#f472b6', '#60a5fa', '#4ade80'];
+
+const tooltipStyle = {
+  background: '#0c1120',
+  border: '1px solid rgba(56, 189, 248, 0.15)',
+  borderRadius: '8px',
+  color: '#dde3ed',
+  fontSize: '13px',
+  fontFamily: 'Mulish, sans-serif',
+};
 
 function SpendingChart({ transactions }) {
   const expensesByCategory = transactions
@@ -19,12 +28,27 @@ function SpendingChart({ transactions }) {
   return (
     <div className="chart-container">
       <h2>Spending by Category</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
-          <XAxis dataKey="name" />
-          <YAxis tickFormatter={(v) => `$${v}`} />
-          <Tooltip formatter={(value) => `$${value}`} />
-          <Bar dataKey="value" name="Amount">
+      <ResponsiveContainer width="100%" height={260}>
+        <BarChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+          <XAxis
+            dataKey="name"
+            tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'Mulish, sans-serif' }}
+            axisLine={{ stroke: 'rgba(56,189,248,0.08)' }}
+            tickLine={false}
+          />
+          <YAxis
+            tickFormatter={(v) => `$${v}`}
+            tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'Mulish, sans-serif' }}
+            axisLine={false}
+            tickLine={false}
+            width={52}
+          />
+          <Tooltip
+            formatter={(value) => [`$${value}`, 'Amount']}
+            contentStyle={tooltipStyle}
+            cursor={{ fill: 'rgba(56, 189, 248, 0.04)' }}
+          />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
             {data.map((_, index) => (
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
