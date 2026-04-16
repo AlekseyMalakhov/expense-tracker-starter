@@ -13,6 +13,19 @@ h1 {
   color: #666;
 }
 
+.chart-container {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.chart-container h2 {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
 .summary {
   display: flex;
   gap: 12px;
