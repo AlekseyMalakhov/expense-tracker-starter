@@ -13,14 +13,12 @@ npm run preview  # Preview production build
 
 ## Architecture
 
-This is a single-component React app (Vite + React 19). All logic lives in `src/App.jsx` — there are no sub-components, routing, or external state libraries.
+React 19 + Vite app. No routing or external state libraries.
 
-**State in `App.jsx`:**
-- `transactions` — array of `{ id, description, amount, type, category, date }`. `amount` is stored as a **string**, which causes a known bug: `reduce` concatenates instead of summing, so totals display incorrectly.
-- `filterType` / `filterCategory` — control which transactions are shown in the table.
-- Form fields (`description`, `amount`, `type`, `category`) are controlled inputs that reset on submit.
+**Component tree:**
+- `App` — holds `transactions` state (`{ id, description, amount, type, category, date }`), passes it down. `amount` is always a number.
+- `Summary` — receives `transactions`, computes `totalIncome`, `totalExpenses`, and `balance` internally.
+- `TransactionForm` — owns its own form state; calls `onAdd(transaction)` prop on submit.
+- `TransactionList` — receives `transactions`, owns filter state (`filterType`, `filterCategory`) internally.
 
-**Known issues (intentional, part of the course):**
-- `amount` is never parsed to a number, so arithmetic on totals is broken.
-- UI is intentionally plain/unstyled.
-- Code structure is intentionally monolithic.
+**Shared constant:** `categories` array is defined locally in both `TransactionForm` and `TransactionList`.
